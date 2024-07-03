@@ -26,6 +26,7 @@ public class AuthorityService {
 
     public AuthorityResponse createUser(AuthorityRequest userRequest){
         Authority user = Authority.builder()
+            .name(userRequest.getName())
             .username(userRequest.getUsername())
             .email(userRequest.getEmail())
             .password(userRequest.getPassword())
@@ -36,6 +37,7 @@ public class AuthorityService {
         return AuthorityResponse.builder()
             .id(user.getId())
             .name(user.getUsername())
+            .username(userRequest.getUsername())
             .email(user.getEmail())
             .build(); 
 
