@@ -24,7 +24,7 @@ public class AuthorityService {
     private final AuthorityRepository userRepository;
 
 
-    public void createUser(AuthorityRequest userRequest){
+    public AuthorityResponse createUser(AuthorityRequest userRequest){
         Authority user = Authority.builder()
             .username(userRequest.getUsername())
             .email(userRequest.getEmail())
@@ -33,6 +33,11 @@ public class AuthorityService {
 
         userRepository.save(user);
         log.info("User {} is saved", user.getUsername());
+        return AuthorityResponse.builder()
+            .id(user.getId())
+            .name(user.getUsername())
+            .email(user.getEmail())
+            .build(); 
 
     } 
 

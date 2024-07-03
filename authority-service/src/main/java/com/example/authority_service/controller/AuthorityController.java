@@ -27,35 +27,35 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthorityController {
 
-    private final AuthorityService  userService;
+    private final AuthorityService  authorityService;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createUser(@RequestBody AuthorityRequest userRequest) {
-        userService.createUser(userRequest);
+    public AuthorityResponse createUser(@RequestBody AuthorityRequest userRequest) {
+        return authorityService.createUser(userRequest);
     }
     
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<AuthorityResponse> getAllUsers() {
-        return userService.getAllUsers();
+        return authorityService.getAllUsers();
     }
     
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public AuthorityResponse getUserById(@PathVariable Long id){
-        return userService.getUserById(id);
+        return authorityService.getUserById(id);
     }
 
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public void updateUserById(@PathVariable Long id, @RequestBody AuthorityRequest userRequest){
-        userService.updateUserById(id, userRequest);
+        authorityService.updateUserById(id, userRequest);
     }
 
     @GetMapping("/name/{username}")
     @ResponseStatus(HttpStatus.OK)
     public Authority getUserByUsername(@PathVariable String username){
-        return userService.getUserByUsername(username);
+        return authorityService.getUserByUsername(username);
     }
 
 
