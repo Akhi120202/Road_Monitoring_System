@@ -1,6 +1,7 @@
 package com.example.report_service.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,16 @@ public class CategoryService {
     public List<Category> getAllCategories(){
         List<Category> categories = categoryRepository.findAll();
         return categories;
+    }
+
+    public void deleteCategory(String categoryId) {
+        Optional<Category> category = categoryRepository.findById(categoryId);
+        if (category.isPresent()) {
+            categoryRepository.deleteById(categoryId);
+            log.info("Category {} has been deleted", category.get().getName());
+        } else {
+            log.warn("Category with ID {} not found", categoryId);
+        }
     }
     
 }
