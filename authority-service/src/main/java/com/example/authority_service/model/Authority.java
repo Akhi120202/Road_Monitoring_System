@@ -1,18 +1,16 @@
 package com.example.authority_service.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name = "authorities")
+@Document(value  = "authorities")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
@@ -20,14 +18,13 @@ import lombok.NoArgsConstructor;
 public class Authority {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column
+    private String id;
+    @Field
     private String name;
-    @Column
+    @Field
     private String username;
-    @Column
+    @Field
     private String email;
-    @Column
+    @Field
     private String password;
 }

@@ -36,7 +36,7 @@ public class AuthorityService {
         log.info("User {} is saved", user.getUsername());
         return AuthorityResponse.builder()
             .id(user.getId())
-            .name(user.getUsername())
+            .name(user.getName())
             .username(userRequest.getUsername())
             .email(user.getEmail())
             .build(); 

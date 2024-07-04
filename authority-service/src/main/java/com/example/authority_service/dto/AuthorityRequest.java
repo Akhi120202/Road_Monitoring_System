@@ -1,6 +1,5 @@
 package com.example.authority_service.dto;
 
-import javax.swing.Spring;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
