@@ -4,7 +4,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import com.example.authority_service.model.Authority;
 
-public interface AuthorityRepository extends MongoRepository<Authority, Long>{
+public interface AuthorityRepository extends MongoRepository<Authority, String>{
     Authority findByUsername(String username);
 
 }

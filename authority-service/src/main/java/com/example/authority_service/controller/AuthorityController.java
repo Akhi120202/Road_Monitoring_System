@@ -1,6 +1,7 @@
 package com.example.authority_service.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -44,13 +46,13 @@ public class AuthorityController {
     
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public AuthorityResponse getUserById(@PathVariable Long id){
+    public AuthorityResponse getUserById(@PathVariable String id){
         return authorityService.getUserById(id);
     }
 
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateUserById(@PathVariable Long id, @RequestBody AuthorityRequest userRequest){
+    public void updateUserById(@PathVariable String id, @RequestBody AuthorityRequest userRequest){
         authorityService.updateUserById(id, userRequest);
     }
 
@@ -58,6 +60,24 @@ public class AuthorityController {
     @ResponseStatus(HttpStatus.OK)
     public Authority getUserByUsername(@PathVariable String username){
         return authorityService.getUserByUsername(username);
+    }
+
+    @GetMapping("/reports/desciption")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Map<String, Object>> searchReportsByDescription(@RequestParam String description) {
+        return authorityService.searchReportsByDescription(description);
+    }
+
+    @GetMapping("/reports/category")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Map<String, Object>> searchReportsByCategory(@RequestParam String category) {
+        return authorityService.searchReportsByCategory(category);
+    }
+
+    @GetMapping("/reports/status")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Map<String, Object>> searchReportsByStatus(@RequestParam String status) {
+        return authorityService.searchReportsByStatus(status);
     }
 
 

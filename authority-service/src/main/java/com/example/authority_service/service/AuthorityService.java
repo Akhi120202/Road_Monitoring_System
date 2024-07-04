@@ -2,10 +2,12 @@ package com.example.authority_service.service;
 
 //import org.hibernate.mapping.List;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.authority_service.controller.ReportClient;
 import com.example.authority_service.dto.AuthorityRequest;
 import com.example.authority_service.dto.AuthorityResponse;
 import com.example.authority_service.model.Authority;
@@ -22,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AuthorityService {
 
     private final AuthorityRepository userRepository;
-
+    private final ReportClient reportClient;
 
     public AuthorityResponse createUser(AuthorityRequest userRequest){
         Authority user = Authority.builder()
@@ -56,7 +58,7 @@ public class AuthorityService {
             .build(); 
     }
 
-    public AuthorityResponse getUserById(Long id) {
+    public AuthorityResponse getUserById(String id) {
         Optional<Authority> userOptional = userRepository.findById(id);
 
         Authority user = userOptional.get();
@@ -67,7 +69,7 @@ public class AuthorityService {
             .build();
     }
 
-    public void updateUserById(Long id, AuthorityRequest userRequest){
+    public void updateUserById(String id, AuthorityRequest userRequest){
         Optional<Authority> userOptional = userRepository.findById(id);
         Authority user = userOptional.get();
         user.setUsername(userRequest.getUsername());
@@ -86,5 +88,17 @@ public class AuthorityService {
         //     .name(userOptional.getUsername()) 
         //     .email(userOptional.getEmail()) 
         //     .build();
+    }
+
+    public List<Map<String, Object>> searchReportsByDescription(String description) {
+        return reportClient.searchReportsByDescription(description);
+    }
+
+    public List<Map<String, Object>> searchReportsByCategory(String categoryName) {
+        return reportClient.searchReportsByCategory(categoryName);
+    }
+
+    public List<Map<String, Object>> searchReportsByStatus(String status) {
+        return reportClient.searchReportsByStatus(status);
     }
 }
