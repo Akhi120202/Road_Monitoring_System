@@ -91,7 +91,7 @@ public class ReportController {
     }
 
     @GetMapping("/search/user")
-    public ResponseEntity<List<ReportResponse>> searchrepo(@RequestParam String userId) {
+    public ResponseEntity<List<ReportResponse>> searchReportsByUser(@RequestParam String userId) {
         return ResponseEntity.ok(reportService.searchReportsByUser(userId));
     }
      

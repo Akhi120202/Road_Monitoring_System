@@ -2,10 +2,12 @@ package com.example.user_service.service;
 
 //import org.hibernate.mapping.List;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.example.user_service.controller.ReportClient;
 import com.example.user_service.dto.UserRequest;
 import com.example.user_service.dto.UserResponse;
 import com.example.user_service.model.User;
@@ -22,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 public class UserService {
 
     private final UserRepository userRepository;
-
+    private final ReportClient reportClient;
 
     public UserResponse createUser(UserRequest userRequest){
         User user = User.builder()
@@ -57,7 +59,7 @@ public class UserService {
             .build(); 
     }
 
-    public UserResponse getUserById(Long id) {
+    public UserResponse getUserById(String id) {
         Optional<User> userOptional = userRepository.findById(id);
 
         User user = userOptional.get();
@@ -68,7 +70,7 @@ public class UserService {
             .build();
     }
 
-    public void updateUserById(Long id, UserRequest userRequest){
+    public void updateUserById(String id, UserRequest userRequest){
         Optional<User> userOptional = userRepository.findById(id);
         User user = userOptional.get();
         user.setUsername(userRequest.getUsername());
@@ -87,5 +89,9 @@ public class UserService {
         //     .name(userOptional.getUsername()) 
         //     .email(userOptional.getEmail()) 
         //     .build();
+    }
+
+    public List<Map<String, Object>> searchReportsByUser(String userID) {
+        return reportClient.searchReportsByUser(userID);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.user_service.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -44,13 +46,13 @@ public class UserController {
     
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public UserResponse getUserById(@PathVariable Long id){
+    public UserResponse getUserById(@PathVariable String id){
         return userService.getUserById(id);
     }
 
     @PostMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public void updateUserById(@PathVariable Long id, @RequestBody UserRequest userRequest){
+    public void updateUserById(@PathVariable String id, @RequestBody UserRequest userRequest){
         userService.updateUserById(id, userRequest);
     }
 
@@ -58,6 +60,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public User getUserByUsername(@PathVariable String username){
         return userService.getUserByUsername(username);
+    }
+
+    @GetMapping("/reports")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Map<String, Object>> searchReportsByUser(@RequestParam String userid) {
+        return userService.searchReportsByUser(userid);
     }
 
 
