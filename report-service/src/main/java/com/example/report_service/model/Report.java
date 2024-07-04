@@ -20,7 +20,7 @@ public class Report {
     @Id
     private String id;
     @Field
-    private Long userId;
+    private String userId;
     @Field
     private String photoUrl;
     @Field

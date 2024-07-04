@@ -67,7 +67,7 @@ public class ReportService {
 
     } 
 
-    public List<ReportResponse> getAllUsers(){
+    public List<ReportResponse> getAllReports(){
         List<Report> reports = reportRepository.findAll();
         return reports.stream().map(report -> mapToReportResponse(report)).toList();
     }
@@ -128,6 +128,36 @@ public class ReportService {
     public FeedBack getFeedBack(String reportId) {
         Optional<Report> report = reportRepository.findById(reportId);
         return report.get().getFeedBack();
+    }
+
+    public List<ReportResponse> searchReportsByDescription(String description) {
+        List<Report> reports = reportRepository.findByDescriptionContainingIgnoreCase(description);
+        return reports.stream().map(this::mapToReportResponse).toList();
+    }
+
+    public List<ReportResponse> searchReportsByCategory(String categoryName) {
+        Optional<Category> category = categoryRepository.findByName(categoryName);
+        if (category.isPresent()) {
+            List<Report> reports = reportRepository.findByCategory(category.get());
+            return reports.stream().map(this::mapToReportResponse).toList();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<ReportResponse> searchReportsByStatus(String status) {
+        Optional<ReportStatus> reportStatus = statusRepository.findByStatus(status);
+        if (reportStatus.isPresent()) {
+            List<Report> reports = reportRepository.findByStatus(reportStatus.get());
+            return reports.stream().map(this::mapToReportResponse).toList();
+        } else {
+            return List.of();
+        }
+    }
+
+    public List<ReportResponse> searchReportsByUser(String userId) {
+        List<Report> reports = reportRepository.findByUserId(userId);
+        return reports.stream().map(this::mapToReportResponse).toList();
     }
 }
 

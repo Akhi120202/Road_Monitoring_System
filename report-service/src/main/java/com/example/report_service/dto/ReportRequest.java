@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 
 public class ReportRequest {
-    private Long userId;
+    private String userId;
     private String photoUrl;
     private String description;
     private String categoryId;

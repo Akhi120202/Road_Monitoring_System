@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReportResponse {
     private String id;
-    private Long userId;
+    private String userId;
     private String photoUrl;
     private String description;
     private Location location;

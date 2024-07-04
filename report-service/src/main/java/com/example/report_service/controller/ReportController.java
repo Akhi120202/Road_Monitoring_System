@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 //import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,8 +41,8 @@ public class ReportController {
     
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ReportResponse> getAllRsers() {
-        return reportService.getAllUsers();
+    public List<ReportResponse> getAllReports() {
+        return reportService.getAllReports();
     }
     
     @GetMapping("/{id}")
@@ -73,9 +74,26 @@ public class ReportController {
     public FeedBack getFeedBack(@PathVariable String reportId) {
         return reportService.getFeedBack(reportId);
     }
-    
-    
-    
 
+    @GetMapping("/search/description")
+    public ResponseEntity<List<ReportResponse>> searchReportsByDescription(@RequestParam String description) {
+        return ResponseEntity.ok(reportService.searchReportsByDescription(description));
+    }
+
+    @GetMapping("/search/category")
+    public ResponseEntity<List<ReportResponse>> searchReportsByCategory(@RequestParam String categoryName) {
+        return ResponseEntity.ok(reportService.searchReportsByCategory(categoryName));
+    }
+
+    @GetMapping("/search/status")
+    public ResponseEntity<List<ReportResponse>> searchReportsByStatus(@RequestParam String status) {
+        return ResponseEntity.ok(reportService.searchReportsByStatus(status));
+    }
+
+    @GetMapping("/search/user")
+    public ResponseEntity<List<ReportResponse>> searchrepo(@RequestParam String userId) {
+        return ResponseEntity.ok(reportService.searchReportsByUser(userId));
+    }
+     
 
 }
