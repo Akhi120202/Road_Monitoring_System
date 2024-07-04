@@ -24,8 +24,9 @@ public class UserService {
     private final UserRepository userRepository;
 
 
-    public void createUser(UserRequest userRequest){
+    public UserResponse createUser(UserRequest userRequest){
         User user = User.builder()
+            .name(userRequest.getName())
             .username(userRequest.getUsername())
             .email(userRequest.getEmail())
             .password(userRequest.getPassword())
@@ -33,6 +34,13 @@ public class UserService {
 
         userRepository.save(user);
         log.info("User {} is saved", user.getUsername());
+
+        return UserResponse.builder()
+            .id(user.getId())
+            .name(user.getName())
+            .username(user.getUsername())
+            .email(user.getEmail())
+            .build();
 
     } 
 
