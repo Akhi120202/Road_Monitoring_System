@@ -4,6 +4,7 @@ package com.example.authority_service.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -101,4 +102,11 @@ public class AuthorityService {
     public List<Map<String, Object>> searchReportsByStatus(String status) {
         return reportClient.searchReportsByStatus(status);
     }
+
+    public List<String> getAllEmails() {
+        return userRepository.findAllEmails().stream()
+                .map(Authority::getEmail)
+                .collect(Collectors.toList());    }
+
+    
 }

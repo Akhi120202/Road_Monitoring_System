@@ -14,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 
 //import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -78,6 +79,12 @@ public class AuthorityController {
     @ResponseStatus(HttpStatus.OK)
     public List<Map<String, Object>> searchReportsByStatus(@RequestParam String status) {
         return authorityService.searchReportsByStatus(status);
+    }
+
+    @GetMapping("/emails")
+    public ResponseEntity<List<String>> getAllEmails() {
+        List<String> emails = authorityService.getAllEmails();
+        return ResponseEntity.ok(emails);
     }
 
 
