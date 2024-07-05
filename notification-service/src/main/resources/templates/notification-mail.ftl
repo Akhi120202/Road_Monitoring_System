@@ -52,22 +52,14 @@
 <body>
     <div class="email-container">
         <div class="header">
-            <h1>Email Notification</h1>
+            <h1>Road Monitoring System</h1>
         </div>
         <div class="content">
-            <h2>Hello, [Recipient's Name]</h2>
-            <p>This is a simple email notification template in grayscale. Use this template to send notifications, updates, or any other type of email communication.</p>
-            <p>Here's a sample link: <a href="#">Click here</a></p>
-            <h3>Details:</h3>
-            <ul>
-                <li>Detail 1</li>
-                <li>Detail 2</li>
-                <li>Detail 3</li>
-            </ul>
+            <h2>Hello,</h2>
+            <p>A new report has been submitted. Please check your dashboard to find all the reports.</p>            
         </div>
         <div class="footer">
-            <p>&copy; 2024 Your Company Name. All rights reserved.</p>
-            <p><a href="#">Unsubscribe</a> | <a href="#">Contact Us</a></p>
+            <p>&copy; 2024 YRoad Monitoring System. All rights reserved.</p>
         </div>
     </div>
 </body>
