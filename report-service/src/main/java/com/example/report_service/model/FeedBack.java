@@ -18,7 +18,7 @@ public class FeedBack {
     @Id
     private String id;
     @Field
-    private Long userId;
+    private String userId;
     @Field
     private String comment;
     @Field

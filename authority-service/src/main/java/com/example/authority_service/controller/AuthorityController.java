@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.authority_service.dto.AuthorityRequest;
 import com.example.authority_service.dto.AuthorityResponse;
+import com.example.authority_service.dto.LoginRequest;
 import com.example.authority_service.model.Authority;
 import com.example.authority_service.service.AuthorityService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 //import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/admin")
 @RequiredArgsConstructor
+@Slf4j
 public class AuthorityController {
 
     private final AuthorityService  authorityService;
@@ -85,6 +88,13 @@ public class AuthorityController {
     public ResponseEntity<List<String>> getAllEmails() {
         List<String> emails = authorityService.getAllEmails();
         return ResponseEntity.ok(emails);
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public AuthorityResponse login(@RequestBody LoginRequest loginRequest){
+        log.info(loginRequest.toString());
+        return authorityService.login(loginRequest);
     }
 
 

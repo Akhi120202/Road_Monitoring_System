@@ -108,7 +108,7 @@ public class ReportService {
         Optional<ReportStatus> status = statusRepository.findById(statusId);
         ReportStatus updatedStatus = status.get();
 
-        Optional<Report> report = reportRepository.findById(statusId);
+        Optional<Report> report = reportRepository.findById(reportId);
         Report updatedReport = report.get();
 
         updatedReport.setStatus(updatedStatus);
@@ -158,6 +158,21 @@ public class ReportService {
     public List<ReportResponse> searchReportsByUser(String userId) {
         List<Report> reports = reportRepository.findByUserId(userId);
         return reports.stream().map(this::mapToReportResponse).toList();
+    }
+
+    public void updateCategory(String reportId, String categoryId) {
+        log.info(categoryId);
+        log.info(reportId);
+
+        Optional<Category> status = categoryRepository.findById(categoryId);
+        Category updatedStatus = status.get();
+
+        Optional<Report> report = reportRepository.findById(reportId);
+        Report updatedReport = report.get();
+
+        updatedReport.setCategory(updatedStatus);
+        reportRepository.save(updatedReport);
+        log.info("Report {} has been updated to {}", updatedReport.getId(), updatedStatus.getName());;
     }
 }
 

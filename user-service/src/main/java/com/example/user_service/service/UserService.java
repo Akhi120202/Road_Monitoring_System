@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.example.user_service.controller.ReportClient;
+import com.example.user_service.dto.LoginRequest;
 import com.example.user_service.dto.UserRequest;
 import com.example.user_service.dto.UserResponse;
 import com.example.user_service.model.User;
@@ -55,6 +56,7 @@ public class UserService {
         return UserResponse.builder()
             .id(user.getId())
             .name(user.getUsername())
+            .username(user.getUsername())
             .email(user.getEmail())
             .build(); 
     }
@@ -65,7 +67,8 @@ public class UserService {
         User user = userOptional.get();
         return UserResponse.builder()
             .id(user.getId())
-            .name(user.getUsername()) 
+            .name(user.getUsername())
+            .username(user.getUsername()) 
             .email(user.getEmail()) 
             .build();
     }
@@ -73,6 +76,7 @@ public class UserService {
     public void updateUserById(String id, UserRequest userRequest){
         Optional<User> userOptional = userRepository.findById(id);
         User user = userOptional.get();
+        user.setName(userRequest.getName());
         user.setUsername(userRequest.getUsername());
         user.setEmail(userRequest.getEmail());
         userRepository.save(user);
@@ -93,5 +97,24 @@ public class UserService {
 
     public List<Map<String, Object>> searchReportsByUser(String userID) {
         return reportClient.searchReportsByUser(userID);
+    }
+
+    public UserResponse login(LoginRequest loginRequest) {
+        Optional<User> userOptional = userRepository.findByEmail(loginRequest.getEmail());
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            if (user.getPassword().equals(loginRequest.getPassword())) {
+                return UserResponse.builder()
+                    .id(user.getId())
+                    .name(user.getName())
+                    .username(user.getUsername())
+                    .email(user.getEmail())
+                    .build();
+            } else {
+                throw new RuntimeException("Invalid password");
+            }
+        } else {
+            throw new RuntimeException("User not found");
+        }
     }
 }

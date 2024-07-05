@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.user_service.dto.LoginRequest;
 import com.example.user_service.dto.UserRequest;
 import com.example.user_service.dto.UserResponse;
 import com.example.user_service.model.User;
 import com.example.user_service.service.UserService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 //import org.hibernate.mapping.List;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,7 @@ import java.util.Map;
 @CrossOrigin(origins = "*")
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final UserService  userService;
@@ -42,6 +45,13 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public List<UserResponse> getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @PostMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public UserResponse login(@RequestBody LoginRequest loginRequest){
+        log.info(loginRequest.toString());
+        return userService.login(loginRequest);
     }
     
     @GetMapping("/{id}")

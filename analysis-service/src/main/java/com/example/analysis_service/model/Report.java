@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 public class Report {
 
     private String id;
-    private Long userId;
+    private String userId;
     private String photoUrl;
     private String description;
     private Location location;

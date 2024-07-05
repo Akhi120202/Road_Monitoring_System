@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.example.authority_service.controller.ReportClient;
 import com.example.authority_service.dto.AuthorityRequest;
 import com.example.authority_service.dto.AuthorityResponse;
+import com.example.authority_service.dto.LoginRequest;
 import com.example.authority_service.model.Authority;
 import com.example.authority_service.repository.AuthorityRepository;
 
@@ -107,6 +108,25 @@ public class AuthorityService {
         return userRepository.findAllEmails().stream()
                 .map(Authority::getEmail)
                 .collect(Collectors.toList());    }
+
+    public AuthorityResponse login(LoginRequest loginRequest) {
+        Optional<Authority> userOptional = userRepository.findByEmail(loginRequest.getEmail());
+        if (userOptional.isPresent()) {
+            Authority authority = userOptional.get();
+            if (authority.getPassword().equals(loginRequest.getPassword())) {
+                return AuthorityResponse.builder()
+                    .id(authority.getId())
+                    .name(authority.getName())
+                    .username(authority.getUsername())
+                    .email(authority.getEmail())
+                    .build();
+            } else {
+                throw new RuntimeException("Invalid password");
+            }
+        } else {
+            throw new RuntimeException("User not found");
+        }
+    }
 
     
 }

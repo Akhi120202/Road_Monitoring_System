@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class FeedBack {
     private String id;
-    private Long userId;
+    private String userId;
     private String comment;
     private int rating;
 }
